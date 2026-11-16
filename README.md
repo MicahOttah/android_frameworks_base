@@ -12,7 +12,7 @@ Pad X 8.0 (V521)** port to **LineageOS 15.1** (Android 8.1).
 
 | Commit | Subject |
 | --- | --- |
-| `6a969646` | telephony: add 7.0-era compat APIs for the stock CNE blobs |
+| `11e63f07` | telephony: add 7.0-era compat APIs for the stock CNE blobs |
 
 The connectivity stack of this device is the stock Qualcomm CNE (the
 `libcne.so` blob), which is a **7.0-era** implementation that was dropped
