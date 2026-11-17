@@ -394,6 +394,29 @@ public class PhoneStateListener {
     }
 
     /**
+     * Create a PhoneStateListener for the Phone using the specified subscription
+     * and non-null Looper.
+     *
+     * This is the pre-8.0 signature.  Upstream renamed the primitive-int
+     * overload to the boxed {@link #PhoneStateListener(Integer, Looper)}
+     * variant, so stock vendor blobs that were built against Android 7.0
+     * fail to link against a modern framework with
+     *
+     *     java.lang.NoSuchMethodError: No direct method <init>(ILandroid/os/Looper;)V
+     *
+     * The V521 ships such a blob: LG's CNE stack
+     * (/system/framework/com.quicinc.cne.jar and
+     * /system/priv-app/CNEService/CNEService.apk) is Android 7.0 era and
+     * calls this exact constructor.  Keep the overload so those blobs keep
+     * working; it simply forwards to the boxed variant.
+     *
+     * @hide
+     */
+    public PhoneStateListener(int subId, Looper looper) {
+        this(Integer.valueOf(subId), looper);
+    }
+
+    /**
      * Callback invoked when device service state changes.
      *
      * @see ServiceState#STATE_EMERGENCY_ONLY

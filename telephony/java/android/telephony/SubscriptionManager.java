@@ -1186,6 +1186,28 @@ public class SubscriptionManager {
 
     }
 
+    /**
+     * Get slotId associated with the subscription.
+     *
+     * Renamed to {@link #getSlotIndex(int)} in Android 8.0 (the ISub binder
+     * method was renamed from getSlotId() to getSlotIndex() at the same
+     * time).  The old name is kept because stock vendor blobs built against
+     * Android 7.0 still call it and would otherwise die with a
+     * java.lang.NoSuchMethodError.
+     *
+     * The V521 ships such a blob: LG's CNE stack
+     * (/system/framework/com.quicinc.cne.jar and
+     * /system/priv-app/CNEService/CNEService.apk) is Android 7.0 era and
+     * calls this exact method.
+     *
+     * @return slotId as a positive integer or a negative value if an error either
+     * SIM_NOT_INSERTED or < 0 if an invalid slot index
+     * @hide
+     */
+    public static int getSlotId(int subId) {
+        return getSlotIndex(subId);
+    }
+
     /** @hide */
     public static int[] getSubId(int slotIndex) {
         if (!isValidSlotIndex(slotIndex)) {
